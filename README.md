@@ -12,4 +12,4 @@ The objective of this assignment is to understand the fundamentals of Angular. B
 
 ## Assignment
 
-Create a Google Keep application using which you should be able to perform CRUD operation on **Notes**. You can optionally use Angular Material or Bootstrap.
+Create a frontend Google Keep Application using which you should be able to perform CRUD operation on **Notes**. You can optionally use Angular Material or Bootstrap.
