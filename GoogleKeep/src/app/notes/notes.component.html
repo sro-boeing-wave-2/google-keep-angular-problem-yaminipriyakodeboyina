@@ -1,0 +1,23 @@
+<h2>Notes</h2>
+<ul class="notes">
+  <li *ngFor ="let note of notes"
+  [class.selected]="note==searchedNote"
+  (click)="onSelect(note)">
+  <span class="badge">{{note.id}}</span>{{note.header}}
+</li>
+</ul>
+<h2>Notes</h2>
+<app-note-detail [note]="searchedNote"></app-note-detail>
+
+<!-- <div *ngIf="searchedNote">
+
+  <h2>{{searchedNote.header | uppercase}} Details</h2>
+  <div><span>id: </span>{{searchedNote.id}}</div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="searchedNote.header" placeholder="name">
+    </label>
+  </div>
+
+</div> -->
+
