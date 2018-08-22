@@ -1,15 +1,160 @@
 <h1 mat-dialog-title>create note</h1>
-<div mat-dialog-content>
-  <p>ID</p>
-  <mat-form-field>
+<div mat-dialog-content [formGroup]="CreateNoteDF">
+     <div>ID</div>
+    <mat-form-field>
+
+        <input matInput
+                placeholder="id"
+               formControlName="id">
+
+    </mat-form-field>
+    <div>Title</div>
+    <mat-form-field>
+
+        <input matInput
+                placeholder="text"
+               formControlName="title">
+
+    </mat-form-field>
+    <div>Text</div>
+    <mat-form-field>
+
+        <input matInput
+                placeholder="text"
+               formControlName="text">
+
+    </mat-form-field>
+
+    <div formArrayName="Label">
+        <!-- <a (click)="addLabel()">ddLabel</a> -->
+        <button mat-button (click)="addLabel()">AddLabel</button>
+        <div *ngFor="let label of Label.controls; let i = index">
+            <label>Label:
+          <mat-form-field [formGroupName]="i">
+
+                <input matInput
+                placeholder="text"
+               formControlName="labelName">
+
+          </mat-form-field></label>
+        </div>
+      </div>
+       <section>
+      <div formArrayName="CheckList">
+          <!-- <a (click)="addCheckList()">AddCheckList</a> -->
+          <button mat-button (click)="addCheckList()">AddCheckList</button>
+          <div *ngFor="let checklist of CheckList.controls; let i = index">
+              <label>CheckList:
+            <mat-form-field [formGroupName]="i">
+
+                  <input matInput
+                  placeholder="text"
+                 formControlName="ChecklistItemName">
+
+               </mat-form-field> </label>
+          </div>
+        </div>
+      </section>
+
+        <label>IsPinned:
+            <mat-radio-group formControlName="IsPinned">
+            <mat-radio-button matInput  value="true" >Yes</mat-radio-button>
+            <mat-radio-button matInput value="false" >No</mat-radio-button>
+            </mat-radio-group>
+          </label>
+
+  <!-- <mat-form-field>
+  <div>ID</div>
     <input matInput [(ngModel)]="data.id">
   </mat-form-field>
-  <p>Title</p>
   <mat-form-field>
+      <div>Title</div>
     <input matInput [(ngModel)]="data.heading">
   </mat-form-field>
-  </div>
+  <mat-form-field>
+  <div>Text</div>
+  <input matInput [(ngModel)]="data.text">
+  </mat-form-field>
+
+
+  <div formArrayName="Label">
+      <a (click)="addLabel()">AddLabel</a>
+      <div *ngFor="let label of Label.controls; let i = index">
+        <div [formGroupName]="i">
+          <label>Label:
+            <input type="text" formControlName="labelName">
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+
+
+      <mat-form-field>
+          <div>Checklist</div>
+          <button mat-button (click)="addLabel()">Add Label</button>
+          <input matInput [(ngModel)]="data.text">
+          </mat-form-field>
+  <section>
+      <mat-checkbox class="example-margin" [(ngModel)]="checked">pinned</mat-checkbox>
+    </section> -->
+
+
+    <!-- <form [formGroup]="CreateNoteDF" (ngSubmit)="onSubmit()">
+        <label>ID:
+            <input type="number" formControlName="id" />
+          </label>
+
+        <label>Title:
+          <input type="text" formControlName="title" />
+        </label>
+
+
+        <label>Text:
+          <input type="text" formControlName="text" />
+        </label>
+
+        <div formArrayName="CheckList">
+          <a (click)="addCheckList()">AddCheckList</a>
+          <div *ngFor="let checklist of CheckList.controls; let i = index">
+            <div [formGroupName]="i">
+              <label>CheckList:
+                <input type="text" formControlName="ChecklistItemName">
+              </label>
+               </div>
+          </div>
+        </div>
+        <div formArrayName="Label">
+          <a (click)="addLabel()">AddLabel</a>
+          <div *ngFor="let label of Label.controls; let i = index">
+            <div [formGroupName]="i">
+              <label>Label:
+                <input type="text" formControlName="labelName">
+              </label>
+            </div>
+          </div>
+        </div>
+        <! <label>IsPinned:
+          <input type="radio" class="form-control" value="true" formControlName="IsPinned" checked/>Yes
+          <input type="radio" class="form-control" value="false" formControlName="IsPinned" />No
+        </label> -->
+        <!-- <button type="submit">submit</button>
+        <button type="button" onClick="goBack()">Back</button>
+      </form> -->
+
+
+
+
+
+
+
+
+
+
+
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)=" onSubmit()">Submit</button>
     <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Ok</button>
   </div>

@@ -12,28 +12,48 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'GoogleKeep1';
-  note:Note;
-  id: number;
-  heading: string;
-  pinned: boolean;
-  text: string;
-  label: label[];
-  checklist: checklist[];
+  // title = 'GoogleKeep1';
+   note:Note;
+   id: number;
+  // heading: string;
+  // pinned: boolean;
+  // text: string;
+  // label: label[];
+  // checklist: checklist[];
   constructor(public dialog: MatDialog) {}
-
+  // CreateNoteDF = this.fb.group({
+  //   title : [''],
+  //   text : [''],
+  //   IsPinned:[''],
+  //   Label : this.fb.array([
+  //     this.fb.group({
+  //       labelName : ['']
+  //     })
+  //   ]),
+  //   CheckList : this.fb.array([
+  //     this.fb.group({
+  //       ChecklistItemName : [''],
+  //       IsChecked : ['']
+  //     })
+  //   ])
+  // });
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: {id: this.id, heading: this.heading}
-    });
 
 
-dialogRef.afterClosed().subscribe(result => {
-  console.log('The dialog was closed');
-  this.note= result;
-});
+    this.dialog.open(DialogOverviewExampleDialog,{width: '550px',data: {id:this.id}});
+
+
+//     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+//       width: '400px',
+//      // data: {heading: this.title, text: this.text ,label:({labelname:})}
+//     });
+
+
+// dialogRef.afterClosed().subscribe(result => {
+//   console.log('The dialog was closed');
+//   this.note= result;
+// });
 }
 
 }
@@ -43,49 +63,64 @@ dialogRef.afterClosed().subscribe(result => {
   templateUrl: 'dialogoverview.html',
 })
 export class DialogOverviewExampleDialog {
-  notes:FormGroup;
+  CreateNoteDF:FormGroup;
   note:Note;
+  Notes:Note[];
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Note,private noteservice:NoteService,private formbuilder:FormBuilder,private router:Router) {}
-  CreateNote=this.formbuilder.group({
-    id:[''],
-    heading:[''],
-    pinned:[''],
-    label: this.formbuilder.array([this.formbuilder.group({labelname:['']})]),
-    checklist:this.formbuilder.array([this.formbuilder.group({checkname:['']})])
-  });
-  get label()
-  {
-    return this.CreateNote.get('labell') as FormArray;
+    @Inject(MAT_DIALOG_DATA) public data: Note,private noteservice:NoteService,private fb:FormBuilder,private router:Router) {
+     this. CreateNoteDF = fb.group({
+      id:[''],
+      title : [''],
+      text : [''],
+      IsPinned:[''],
+      Label : this.fb.array([
+        this.fb.group({
+          labelName : ['']
+        })
+      ]),
+      CheckList : this.fb.array([
+        this.fb.group({
+          ChecklistItemName : ['']
+        })
+      ])
+    });
   }
-  addLabel(){
-    this.label.push(this.formbuilder.group({
-      labelname : ['']
-    }));
-  }
-  get checklist(){
-    return this.CreateNote.get('checklist') as FormArray;
-  }
-  addCheckList(){
-    this.checklist.push(this.formbuilder.group({checkname : ['']}));
-  }
-  onSubmit():void{
-    this.GenerateNote();
-    this.router.navigate(['']);
-  }
-  GenerateNote():void{
-    console.log(this.CreateNote.value);
-    this.noteservice.postNotes(this.CreateNote.value as Note).subscribe(result => console.log(result.statusText));
-  }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-  addmore():void
- {
-   document.getElementById("Note_Label").innerHTML +=`<label>Label</label>
-   <input type="text" class="form-control" formControlName="Label">`;
- }
- ngOnInit() {
+    get Label(){
+      return this.CreateNoteDF.get('Label') as FormArray;
+    }
+    addLabel(){
+      this.Label.push(this.fb.group({
+        labelName : ['']
+      }));
+    }
+
+    addCheckList(){
+      this.CheckList.push(this.fb.group({ChecklistItemName : ['']}));
+    }
+    get CheckList(){
+      return this.CreateNoteDF.get('CheckList') as FormArray;
+    }
+    onSubmit():void{
+      this.GenerateNote();
+      this.router.navigate(['']);
+    }
+    GenerateNote():void{
+
+      console.log(this.CreateNoteDF.value);
+      this.noteservice.postNotes(this.CreateNoteDF.value as Note).subscribe();
+      this.noteservice.getNotes().subscribe(notes=>{this.Notes = notes.json()})
+
+    }
+    addmore():void
+    {
+      document.getElementById("Note_Label").innerHTML +=`<label>Label</label>
+      <input type="text" class="form-control" formControlName="Label">`;
+    }
+
+
+    ngOnInit() {
+    }
+
 }
-}
+
