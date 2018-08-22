@@ -18,6 +18,11 @@ public Notes: Note[];
   getNotes(){
     this.noteservice.getNotes().subscribe(notes=>{this.Notes = notes.json()})
   }
+  delete(id:number){
+    this.noteservice.deleteNote(id).subscribe();
+    this.noteservice.getNotes().subscribe(notes=>{this.Notes = notes.json()})
+  }
+
 
 
 }

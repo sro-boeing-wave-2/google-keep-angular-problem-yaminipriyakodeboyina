@@ -17,9 +17,17 @@ export class NoteService {
     // Get all notes
     return this.http.get("https://localhost:44330/api/Todoes");
   }
-  public postNotes(note: Note){
+  public postNotes(note:Note) {
+    // Get all notes
     return this.http.post("https://localhost:44330/api/Todoes",note);
   }
+  notesurl = "https://localhost:44330/api/Todoes";
+  public deleteNote(id: number){
+
+    const url = `${this.notesurl}/${id}`;
+    return this.http.delete(url);
+  }
+
 
 
 }
