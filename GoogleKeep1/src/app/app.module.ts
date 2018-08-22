@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule,MatMenuModule,MatFormFieldModule,MatInputModule,MatCheckbox} from '@angular/material';
+import { MatDialogModule,MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule,MatMenuModule,MatFormFieldModule,MatInputModule} from '@angular/material';
 const appRoutes: Routes = [
   { path: '', component: NoteComponent }
 
@@ -22,7 +22,6 @@ const appRoutes: Routes = [
     AppComponent,
     NoteComponent,
     DialogOverviewExampleDialog,
-    MatCheckbox
   ],
   imports: [
     BrowserModule,
@@ -44,7 +43,7 @@ const appRoutes: Routes = [
     CdkTreeModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckbox
+
   ],
   entryComponents: [DialogOverviewExampleDialog],
   providers: [NoteService],

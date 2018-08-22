@@ -23,9 +23,6 @@ export class AppComponent {
   constructor(public dialog: MatDialog) {}
 
 
-
-
-
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
